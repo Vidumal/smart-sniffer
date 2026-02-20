@@ -34,3 +34,11 @@ class WiresharkPro(ctk.CTk):
         self.detail_view.pack(fill="x", padx=10, pady=10)
 
         self.engine = PacketEngine(self.add_to_table)
+
+    def start_capture(self):
+        self.engine.start_sniffing()
+        self.start_btn.configure(state="disabled")
+
+    def stop_capture(self):
+        self.engine.stop()
+        self.start_btn.configure(state="normal")
