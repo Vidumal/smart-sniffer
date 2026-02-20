@@ -1,6 +1,5 @@
 import threading
-from scapy.all import sniff, IP, TCP, UDP, Raw
-import queue
+from scapy.all import sniff, IP, Raw
 
 class PacketEngine:
     def __init__(self, ui_callback):
@@ -8,7 +7,7 @@ class PacketEngine:
         self.running = False
         self.packet_list = []
 
-    def start_sniffing(self, interface=None):
+    def start_sniffing(self):
         self.running = True
         self.sniff_thread = threading.Thread(target=self._sniff)
         self.sniff_thread.daemon = True
@@ -19,7 +18,6 @@ class PacketEngine:
 
     def _handle_packet(self, pkt):
         if IP in pkt:
-            
             pkt_data = {
                 "id": len(self.packet_list),
                 "time": pkt.time,
@@ -28,14 +26,13 @@ class PacketEngine:
                 "proto": pkt[IP].proto,
                 "length": len(pkt),
                 "info": pkt.summary(),
-                "raw": pkt
+                "raw": pkt,
+                "risk": "Low"
             }
-            
-            pkt_data["risk"] = "Low"
             if pkt.haslayer(Raw):
                 payload = str(pkt[Raw].load).lower()
                 if any(word in payload for word in ["user", "pass", "login", "config"]):
-                    pkt_data["risk"] = "⚠️ HIGH (Plaintext Creds)"
+                    pkt_data["risk"] = "HIGH"
 
             self.packet_list.append(pkt_data)
             self.ui_callback(pkt_data)
