@@ -29,7 +29,7 @@ class SnifferEngine:
             if pkt.haslayer(Raw):
                 payload = str(pkt[Raw].load)
                 if any(kw in payload.lower() for kw in ["user", "pass", "login"]):
-                    data["alert"] = "⚠️ CREDENTIALS DETECTED"
+                    data["alert"] = "! CREDENTIALS DETECTED"
                 else:
                     data["alert"] = ""
             
