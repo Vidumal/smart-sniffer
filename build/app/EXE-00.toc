@@ -58,12 +58,21 @@
   ('pyi_rth_pkgutil',
    'C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pkgutil.py',
    'PYSOURCE'),
+<<<<<<< HEAD
   ('pyi_rth_mplconfig',
    'C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_mplconfig.py',
    'PYSOURCE'),
   ('pyi_rth_multiprocessing',
    'C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_multiprocessing.py',
    'PYSOURCE'),
+=======
+  ('pyi_rth_multiprocessing',
+   'C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_multiprocessing.py',
+   'PYSOURCE'),
+  ('pyi_rth_mplconfig',
+   'C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_mplconfig.py',
+   'PYSOURCE'),
+>>>>>>> 77c0b7527d3059aabdab6ccaa33e4e327ac1a341
   ('pyi_rth_traitlets',
    'C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\rthooks\\pyi_rth_traitlets.py',
    'PYSOURCE'),
@@ -80,7 +89,11 @@
  [],
  False,
  False,
+<<<<<<< HEAD
  1771594516,
+=======
+ 1771592485,
+>>>>>>> 77c0b7527d3059aabdab6ccaa33e4e327ac1a341
  [('runw.exe',
    'C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\runw.exe',
    'EXECUTABLE')],
