@@ -42,3 +42,12 @@ class WiresharkPro(ctk.CTk):
     def stop_capture(self):
         self.engine.stop()
         self.start_btn.configure(state="normal")
+
+    def add_to_table(self, data):
+        self.tree.insert("", "end", iid=data["id"], values=(data["id"], data["time"], data["src"], data["dst"], data["proto"], data["risk"]))
+
+    def show_details(self, event):
+        selected_item = self.tree.selection()[0]
+        pkt_obj = self.engine.packet_list[int(selected_item)]["raw"]
+        self.detail_view.delete("1.0", "end")
+        self.detail_view.insert("1.0", pkt_obj.show(dump=True))
