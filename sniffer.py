@@ -16,4 +16,5 @@ class SnifferEngine:
     def stop(self):
         self.running = False
     
-    
+    def _run_sniffing(self):
+        sniff(prn=self._process_packet, stop_filter=lambda x: not self.running, store=0)
