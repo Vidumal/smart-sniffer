@@ -29,3 +29,6 @@ class SnifferApp(ctk.CTk):
         self.display.insert("end", entry)
         self.display.see("end")
 
+if __name__ == "__main__":
+    app = SnifferApp()
+    app.mainloop()
