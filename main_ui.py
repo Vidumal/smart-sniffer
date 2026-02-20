@@ -1,18 +1,18 @@
 import customtkinter as ctk
-from sniffer_engine import SnifferEngine
+from sniffer import SnifferEngine
 
 class SnifferApp(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title("Network Guardian")
+        self.title("Punsith's Network Guardian")
         self.geometry("900x600")
         ctk.set_appearance_mode("dark")
 
-      
+        # UI Setup
         self.start_btn = ctk.CTkButton(self, text="Start Capture", command=self.start_sniffing, fg_color="green")
         self.start_btn.pack(pady=10)
 
-        
+        # The Table (Textbox for now, can be a Treeview later)
         self.display = ctk.CTkTextbox(self, width=850, height=450)
         self.display.pack(padx=20, pady=10)
 
@@ -22,7 +22,7 @@ class SnifferApp(ctk.CTk):
         self.display.insert("end", "[*] Starting Sniffing...\n")
         self.engine.start()
         self.start_btn.configure(text="Capture Running...", state="disabled")
-    
+
     def update_ui(self, data):
         alert_str = f" | {data['alert']}" if data['alert'] else ""
         entry = f"[{data['src']}] -> [{data['dst']}] | Proto: {data['proto']}{alert_str}\n"
