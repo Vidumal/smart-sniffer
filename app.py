@@ -52,12 +52,26 @@ class WiresharkPro(ctk.CTk):
 
     def add_to_table(self, data):
         self.tree.insert("", "end", iid=data["id"], values=(data["id"], data["time"], data["src"], data["dst"], data["proto"], data["risk"]))
+        location = get_ip_location(data["dst"])
+        owner = get_org_owner(data["dst"])
+
+        self.tree.insert("", "end", values=(data["id"], data["src"], data["dst"], location, owner, data["risk"]))
 
     def show_details(self, event):
         selected_item = self.tree.selection()[0]
         pkt_obj = self.engine.packet_list[int(selected_item)]["raw"]
         self.detail_view.delete("1.0", "end")
         self.detail_view.insert("1.0", pkt_obj.show(dump=True)) 
+
+    def show_stats(self):
+        
+        protocols = ["TCP", "UDP", "ICMP", "Other"]
+        counts = [15, 5, 2, 1] 
+        
+        plt.figure(figsize=(6,4))
+        plt.pie(counts, labels=protocols, autopct='%1.1f%%', colors=['#3498db', '#e74c3c', '#f1c40f', '#95a5a6'])
+        plt.title("Traffic Distribution")
+        plt.show()
 
 if __name__ == "__main__":
     app = WiresharkPro()
