@@ -13,3 +13,32 @@ class PacketEngine:
         self.sniff_thread = threading.Thread(target=self._sniff)
         self.sniff_thread.daemon = True
         self.sniff_thread.start()
+
+    def _sniff(self):
+        sniff(prn=self._handle_packet, stop_filter=lambda x: not self.running, store=0)
+
+    def _handle_packet(self, pkt):
+        if IP in pkt:
+            
+            pkt_data = {
+                "id": len(self.packet_list),
+                "time": pkt.time,
+                "src": pkt[IP].src,
+                "dst": pkt[IP].dst,
+                "proto": pkt[IP].proto,
+                "length": len(pkt),
+                "info": pkt.summary(),
+                "raw": pkt
+            }
+            
+            pkt_data["risk"] = "Low"
+            if pkt.haslayer(Raw):
+                payload = str(pkt[Raw].load).lower()
+                if any(word in payload for word in ["user", "pass", "login", "config"]):
+                    pkt_data["risk"] = "⚠️ HIGH (Plaintext Creds)"
+
+            self.packet_list.append(pkt_data)
+            self.ui_callback(pkt_data)
+
+    def stop(self):
+        self.running = False
