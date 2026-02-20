@@ -2,13 +2,19 @@ import tkinter as tk
 from tkinter import ttk
 import customtkinter as ctk
 from engine import PacketEngine
+from intelligence import get_ip_location, get_org_owner
+import matplotlib.pyplot as plt
 
 class WiresharkPro(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("SLIIT Cyber-Sniffer v1.0")
         self.geometry("1100x700")
-        
+
+        self.tree["columns"] = ("No.", "Source", "Destination", "Location", "Owner", "Risk")
+        for col in self.tree["columns"]:
+            self.tree.heading(col, text=col)
+
         self.toolbar = ctk.CTkFrame(self, height=50)
         self.toolbar.pack(fill="x", side="top", padx=5, pady=5)
         
@@ -32,6 +38,9 @@ class WiresharkPro(ctk.CTk):
         self.detail_view.pack(fill="x", padx=10, pady=10)
 
         self.engine = PacketEngine(self.add_to_table)
+
+        self.stats_btn = ctk.CTkButton(self.toolbar, text=" Show Stats", command=self.show_stats)
+        self.stats_btn.pack(side="right", padx=10)
 
     def start_capture(self):
         self.engine.start_sniffing()
