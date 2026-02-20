@@ -3,7 +3,6 @@ from tkinter import ttk
 import customtkinter as ctk
 from engine import PacketEngine
 
-
 class WiresharkPro(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -29,7 +28,6 @@ class WiresharkPro(ctk.CTk):
         self.tree.pack(fill="both", expand=True)
         self.tree.bind("<<TreeviewSelect>>", self.show_details)
 
-        
         self.detail_view = ctk.CTkTextbox(self, height=200)
         self.detail_view.pack(fill="x", padx=10, pady=10)
 
@@ -50,4 +48,8 @@ class WiresharkPro(ctk.CTk):
         selected_item = self.tree.selection()[0]
         pkt_obj = self.engine.packet_list[int(selected_item)]["raw"]
         self.detail_view.delete("1.0", "end")
-        self.detail_view.insert("1.0", pkt_obj.show(dump=True))
+        self.detail_view.insert("1.0", pkt_obj.show(dump=True)) 
+
+if __name__ == "__main__":
+    app = WiresharkPro()
+    app.mainloop()
